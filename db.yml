@@ -1,0 +1,41 @@
+---
+page:
+  introduce:
+    title: Taguchi Kana
+    subTitle: 自己紹介
+    name: 田口 かな
+    joiningYear: 2019年新卒
+    lang: 使用言語：Ruby、JavaScript、TypeScript
+    description:
+      プログラミングスクールではRuby on Rails、社内研修ではJavaScript、TypeScript、Reactを使ったフロントエンド開発を中心に学びました。
+      Web開発に興味があり、独学からプログラミングを始めました。未経験ではありますが、積極的に勉強し、開発に関わっていきたいと思っております。
+  achievement:
+    title: Achievements
+    subTitle: 研修でつくったもの
+  review:
+    title: Book Reviews
+    subTitle: 今まで読んだ本の感想
+---
+achievements:
+  - id: 1
+    title: Reactタイトルタイトルタイトルタイトルタイトルタイトル
+    date: 2019/5/1
+    imageUrl: https://react.semantic-ui.com/images/wireframe/image.png
+    description: Reactタイトルタイトルタイトルタイトルタイトルタイトル
+  - id: 2
+    title: Reactタイトルタイトルタイトルタイトルタイトルタイトル
+    date: 2019/5/1
+    imageUrl: https://react.semantic-ui.com/images/wireframe/image.png
+    description: Reactタイトルタイトルタイトルタイトルタイトルタイトル
+---
+reviews:
+  - id: 1
+    title: オブジェクト思考でなぜつくるのかオブジェクト思考でなぜつくるのかオブジェクト思考でなぜつくるのか
+    imageUrl: https://react.semantic-ui.com/images/wireframe/image.png
+    date: 2019/5/7
+    description: 改訂第2版では、すべての文章を細かく見直して修正して、追加のトピックを記述したことに加えて、多くの技術者の注目を集めている関数型言語の基本的な仕組みと思想を解説する
+  - id: 2
+    title: オブジェクト思考でなぜつくるのかオブジェクト思考でなぜつくるのかオブジェクト思考でなぜつくるのか
+    imageUrl: https://react.semantic-ui.com/images/wireframe/image.png
+    date: 2019/5/7
+    description: 改訂第2版では、すべての文章を細かく見直して修正して、追加のトピックを記述したことに加えて、多くの技術者の注目を集めている関数型言語の基本的な仕組みと思想を解説する
