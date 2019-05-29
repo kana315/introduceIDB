@@ -1,5 +1,8 @@
 import Dexie from "dexie";
+
+// Table型定義
 import { Introduce } from "./introduceTable";
+import { Review } from "./reviewTable";
 
 export interface User {
   id?: number;
@@ -12,12 +15,6 @@ export interface User {
 //   subTitle: string;
 // }
 
-export interface Review {
-  id?: number;
-  title: string;
-  subTitle: string;
-}
-
 // テーブル作成
 class DemoDB extends Dexie {
   user: Dexie.Table<User, number>;
@@ -29,23 +26,11 @@ class DemoDB extends Dexie {
     this.version(1).stores({
       user: "++id, name",
       introduce: "++id, userId, title, content",
-      review: "++id, title, subTitle"
+      review: "++id, title, content"
     });
     this.user = this.table("user");
     this.introduce = this.table("introduce");
     this.review = this.table("review");
-  }
-
-  // Userオブジェクトを追加
-  userCreate(user: User) {
-    this.user.put(user).then(res => console.log("CREATE", res));
-  }
-
-  findReview(title: string) {
-    return this.review
-      .where("title")
-      .equals(title)
-      .first();
   }
 }
 

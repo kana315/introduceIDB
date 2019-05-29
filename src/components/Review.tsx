@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Header, Icon, Image, Button, Form } from "semantic-ui-react";
 import styled from "styled-components";
 // import { Link } from "react-router-dom";
@@ -14,6 +14,13 @@ export type ReviewChild = {
 export type ReviewPage = {
   title: string;
   subTitle: string;
+  reviews: ReviewChild[];
+};
+
+// TODO
+type Review = {
+  title: string;
+  content: string;
 };
 
 const DefaultImage = () => (
@@ -24,14 +31,14 @@ const DefaultImage = () => (
   />
 );
 
-export const ReviewImage: React.FC<Pick<ReviewChild, "imageUrl">> = ({
-  imageUrl
-}) =>
-  typeof imageUrl !== "undefined" ? (
-    <Image src={imageUrl} size="medium" />
-  ) : (
-    <DefaultImage />
-  );
+// export const ReviewImage: React.FC<Pick<ReviewChild, "imageUrl">> = ({
+//   imageUrl
+// }) =>
+//   typeof imageUrl !== "undefined" ? (
+//     <Image src={imageUrl} size="medium" />
+//   ) : (
+//     <DefaultImage />
+//   );
 
 // const ReviewCard: React.FC<ReviewChild> = ({
 //   id,
@@ -54,7 +61,11 @@ export const ReviewImage: React.FC<Pick<ReviewChild, "imageUrl">> = ({
 //   );
 // };
 
+
+const InputContext = React.createContext<Review>({ title: "", content: "" });
+
 const Review: React.FC<ReviewPage> = ({ title, subTitle }) => {
+  
   return (
     <>
       <Title>
@@ -68,13 +79,13 @@ const Review: React.FC<ReviewPage> = ({ title, subTitle }) => {
         <Form>
           <Form.Field>
             <label>Title</label>
-            <input />
+            <input value={state.title} />
           </Form.Field>
           <Form.Field>
             <label>Content</label>
-            <input />
+            <input value={state.content} />
           </Form.Field>
-          <Button>保存</Button>
+          <Button onClick={() => }>保存</Button>
         </Form>
       </FormArea>
       {/* <Wrapper>
