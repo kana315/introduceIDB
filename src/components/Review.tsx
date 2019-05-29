@@ -1,7 +1,14 @@
 import React from "react";
-import { Card as SemanticCard, Header, Icon, Image } from "semantic-ui-react";
+import {
+  Card as SemanticCard,
+  Header,
+  Icon,
+  Image,
+  Button,
+  Form
+} from "semantic-ui-react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export type ReviewChild = {
   id: string | number;
@@ -14,7 +21,6 @@ export type ReviewChild = {
 export type ReviewPage = {
   title: string;
   subTitle: string;
-  reviews: ReviewChild[];
 };
 
 const DefaultImage = () => (
@@ -34,28 +40,28 @@ export const ReviewImage: React.FC<Pick<ReviewChild, "imageUrl">> = ({
     <DefaultImage />
   );
 
-const ReviewCard: React.FC<ReviewChild> = ({
-  id,
-  title,
-  imageUrl,
-  date,
-  description
-}) => {
-  return (
-    <Card>
-      <ReviewImage imageUrl={imageUrl} />
-      <Card.Content>
-        <Card.Header>
-          <Link to={`/reviews/${id}`}>{title}</Link>
-        </Card.Header>
-        <Card.Meta>{date}</Card.Meta>
-        <Card.Description>{description}</Card.Description>
-      </Card.Content>
-    </Card>
-  );
-};
+// const ReviewCard: React.FC<ReviewChild> = ({
+//   id,
+//   title,
+//   imageUrl,
+//   date,
+//   description
+// }) => {
+//   return (
+//     <Card>
+//       <ReviewImage imageUrl={imageUrl} />
+//       <Card.Content>
+//         <Card.Header>
+//           <Link to={`/reviews/${id}`}>{title}</Link>
+//         </Card.Header>
+//         <Card.Meta>{date}</Card.Meta>
+//         <Card.Description>{description}</Card.Description>
+//       </Card.Content>
+//     </Card>
+//   );
+// };
 
-const Review: React.FC<ReviewPage> = ({ title, subTitle, reviews }) => {
+const Review: React.FC<ReviewPage> = ({ title, subTitle }) => {
   return (
     <>
       <Title>
@@ -65,11 +71,24 @@ const Review: React.FC<ReviewPage> = ({ title, subTitle, reviews }) => {
           <Header.Subheader>---{subTitle}---</Header.Subheader>
         </Header>
       </Title>
-      <Wrapper>
+      <FormArea>
+        <Form>
+          <Form.Field>
+            <label>Title</label>
+            <input />
+          </Form.Field>
+          <Form.Field>
+            <label>Content</label>
+            <input />
+          </Form.Field>
+          <Button>保存</Button>
+        </Form>
+      </FormArea>
+      {/* <Wrapper>
         {reviews.map((v, i) => (
           <ReviewCard key={i} {...v} />
         ))}
-      </Wrapper>
+      </Wrapper> */}
     </>
   );
 };
@@ -80,17 +99,22 @@ const Title = styled.div`
   padding: 20px;
 `;
 
-const Card: any = styled(SemanticCard)`
-  margin: 0 !important;
-`;
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 290px 290px 290px;
-  column-gap: 20px;
-  row-gap: 20px;
-  grid-template-columns: repeat(auto-fill, 290px);
+const FormArea = styled.div`
+  display: flex;
   justify-content: center;
 `;
+
+// const Card: any = styled(SemanticCard)`
+//   margin: 0 !important;
+// `;
+
+// const Wrapper = styled.div`
+//   display: grid;
+//   grid-template-columns: 290px 290px 290px;
+//   column-gap: 20px;
+//   row-gap: 20px;
+//   grid-template-columns: repeat(auto-fill, 290px);
+//   justify-content: center;
+// `;
 
 export default Review;

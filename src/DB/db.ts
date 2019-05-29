@@ -1,38 +1,38 @@
 import Dexie from "dexie";
+import IntroduceTable from "./introduceTable";
 
-interface IUser {
+export interface User {
   id?: number;
   name: string;
 }
 
-interface Introduce {
+// export interface Page {
+//   id?: number;
+//   title: string;
+//   subTitle: string;
+// }
+
+export interface Review {
   id?: number;
-  userId: number;
   title: string;
-  content: string;
+  subTitle: string;
 }
 
 class DemoDB extends Dexie {
-  introduce: Dexie.Table<Introduce, number>;
+  introduce: IntroduceTable;
   user: Dexie.Table<User, number>;
+  review: Dexie.Table<Review, number>;
 
   constructor(databaseName: string) {
     super(databaseName);
     this.version(1).stores({
       user: "++id, name",
-      introduce: "++id, userId, title, content"
+      introduce: "++id, userId, title, content",
+      review: "++id, title, subTitle"
     });
-    this.introduce = this.table("introduce");
+    this.introduce = new IntroduceTable(this);
     this.user = this.table("user");
-  }
-
-  getIntroduce() {
-    const user = this.user;
-  }
-
-  // Introduceオブジェクトを追加
-  create(introduce: Introduce) {
-    this.introduce.put(introduce).then(res => console.log("CREATE", res));
+    this.review = this.table("review");
   }
 
   // Userオブジェクトを追加
@@ -40,18 +40,21 @@ class DemoDB extends Dexie {
     this.user.put(user).then(res => console.log("CREATE", res));
   }
 
-  // IDで検索
-  find(keyId: number) {
-    this.introduce.get(keyId, res => console.log(res));
-  }
-
-  // タイトル名から検索し、配列で返す
-  findByTitle(title: string) {
-    this.introduce
+  // タイトル名からIntroduce検索し、配列で返す
+  async asyncFindIntroduce(title: string) {
+    const records = await this.introduce
       .where("title")
       .equals(title)
-      .toArray()
-      .then(res => console.log(res));
+      .first();
+
+    return { ...records, isOpen: false };
+  }
+
+  findReview(title: string) {
+    return this.review
+      .where("title")
+      .equals(title)
+      .first();
   }
 
   // 異なるデータが与えられたら更新
