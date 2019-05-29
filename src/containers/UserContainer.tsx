@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import UserPage from "../components/User";
 
-const init: User[] = [];
+const init: any = [];
 
 const UserContainer: React.FC = () => {
   // const [state, setUsers] = useState<User[]>(init);
@@ -9,7 +9,7 @@ const UserContainer: React.FC = () => {
     // db.findByTitle("Introduce").then(res => {
     //   console.log(res);
     // });
-  }, [db]);
+  }, []);
   return <UserPage {...init} />;
 };
 

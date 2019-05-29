@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Card as SemanticCard,
-  Header,
-  Icon,
-  Image,
-  Button,
-  Form
-} from "semantic-ui-react";
+import { Header, Icon, Image, Button, Form } from "semantic-ui-react";
 import styled from "styled-components";
 // import { Link } from "react-router-dom";
 

@@ -17,42 +17,39 @@ import ReviewChildContainer from "./containers/ReviewChildContainer";
 import UserContainer from "./containers/UserContainer";
 
 import DemoDB from "./DB/db";
-
-const Context = React.createContext<DemoDB>();
-const db = new DemoDB("myDb");
+const db = new DemoDB("demo");
+export const Context = React.createContext(db);
 
 const AppRouter: React.FC = () => {
   return (
     <Container>
-      <Context.Provider value={db}>
-        <Router>
-          <Menu />
-          <Switch>
-            <Route strict exact path="/" component={HomeContainer} />
-            <Route
-              strict
-              exact
-              path="/achievements"
-              component={AchieveContainer}
-            />
-            <Route
-              strict
-              exact
-              path="/achievements/:id"
-              component={AchieveChildContainer}
-            />
-            <Route strict exact path="/reviews" component={ReviewContainer} />
-            <Route
-              strict
-              exact
-              path="/reviews/:id"
-              component={ReviewChildContainer}
-            />
-            <Route strict exact path="/users" component={UserContainer} />
-            <Route component={NoMatch} />
-          </Switch>
-        </Router>
-      </Context.Provider>
+      <Router>
+        <Menu />
+        <Switch>
+          <Route strict exact path="/" component={HomeContainer} />
+          <Route
+            strict
+            exact
+            path="/achievements"
+            component={AchieveContainer}
+          />
+          <Route
+            strict
+            exact
+            path="/achievements/:id"
+            component={AchieveChildContainer}
+          />
+          <Route strict exact path="/reviews" component={ReviewContainer} />
+          <Route
+            strict
+            exact
+            path="/reviews/:id"
+            component={ReviewChildContainer}
+          />
+          <Route strict exact path="/users" component={UserContainer} />
+          <Route component={NoMatch} />
+        </Switch>
+      </Router>
     </Container>
   );
 };

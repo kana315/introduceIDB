@@ -1,16 +1,15 @@
 import React from "react";
 import { Header, Segment, Icon, Container } from "semantic-ui-react";
 import styled from "styled-components";
-// import { Introduce as IntroducePage } from "../DB/db";
 
-// export type IntroducePage = {
-//   title: string;
-//   subTitle: string;
-//   name: string;
-//   joiningYear: string;
-//   lang: string;
-//   description: string;
-// };
+export type IntroducePage = {
+  title: string;
+  subTitle: string;
+  name?: string;
+  joiningYear?: string;
+  lang?: string;
+  description?: string;
+};
 
 const IntroduceImage = () => (
   <Icon circular color="teal" size="huge" name="paw" />

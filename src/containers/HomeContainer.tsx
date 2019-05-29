@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 // import useReactRouter from "use-react-router";
 // import { match as Match } from "react-router";
 // import Client from "../api/client";
-import DemoDB, { Introduce } from "../DB/db";
+// import DemoDB from "../DB/db";
 import Home from "../components/Home";
+import { Context as DB } from "../App";
+import IntroduceTable from "../DB/introduceTable";
 
-const init: Introduce = {
+const init = {
   title: "Introduce",
-  subTitle: "自己紹介",
+  subTitle: "Init",
   userId: 1,
   name: "Kana",
   joiningYear: "2019年",
@@ -17,11 +19,16 @@ const init: Introduce = {
 
 const HomeContainer: React.FC = () => {
   // const { match } = useReactRouter<{ match: Match }>();
-  const [state, setIntroduce] = useState<Introduce>(init);
+  const [state, setIntroduce] = useState(init);
+  const db = useContext(DB);
   useEffect(() => {
-    db.findIntroduce("Introduce").then(res => {
-      res ? setIntroduce(res) : console.log(res);
+    IntroduceTable.create(db.introduce, {
+      title: "Introduce",
+      subTitle: "自己紹介"
     });
+    IntroduceTable.find(db.introduce, "Introduce").then(res =>
+      setIntroduce(res)
+    );
   }, [db]);
   return <Home {...state} />;
 };
