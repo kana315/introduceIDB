@@ -16,9 +16,11 @@ import ReviewContainer from "./containers/ReviewContainer";
 import ReviewChildContainer from "./containers/ReviewChildContainer";
 import UserContainer from "./containers/UserContainer";
 
-import DemoDB from "./DB/db";
-const db = new DemoDB("demo");
-export const Context = React.createContext(db);
+// DB
+import MyDB from "./DB/db";
+
+const db = new MyDB("myDB");
+export const DBContext = React.createContext(db);
 
 const AppRouter: React.FC = () => {
   return (

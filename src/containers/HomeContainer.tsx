@@ -4,7 +4,7 @@ import React, { useEffect, useState, useContext } from "react";
 // import Client from "../api/client";
 // import DemoDB from "../DB/db";
 import Home from "../components/Home";
-import { Context as DB } from "../App";
+import { DBContext as DB } from "../App";
 import IntroduceTable from "../DB/introduceTable";
 
 const init = {
@@ -22,11 +22,7 @@ const HomeContainer: React.FC = () => {
   const [state, setIntroduce] = useState(init);
   const db = useContext(DB);
   useEffect(() => {
-    IntroduceTable.create(db.introduce, {
-      title: "Introduce",
-      subTitle: "自己紹介"
-    });
-    IntroduceTable.find(db.introduce, "Introduce").then(res =>
+    IntroduceTable.find(db.introduce, "Introdude").then(res =>
       setIntroduce(res)
     );
   }, [db]);

@@ -1,22 +1,40 @@
 import Dexie from "dexie";
 
+export interface User {
+  id?: number;
+  name: string;
+}
+
+export interface Page {
+  id?: number;
+  title: string;
+  subTitle: string;
+}
+
+export interface Review {
+  id?: number;
+  pageId: number;
+  title: string;
+  content: string;
+}
+
 export interface Introduce {
   id?: number;
   userId?: number;
   title: string;
   subTitle: string;
-  // name?: string;
-  // joiningYear?: string;
-  // lang?: string;
-  // description?: string;
+  name?: string;
+  joiningYear?: string;
+  lang?: string;
+  description?: string;
 }
 
-// Introduceオブジェクトを追加
+// レコード追加
 async function create(table: Dexie.Table<any, number>, object: object) {
   await table.put(object);
 }
 
-// タイトル名からIntroduce検索し、配列で返す
+// タイトル名から検索し、配列で返す
 async function find(table: Dexie.Table<any, number>, title: string) {
   const records = await table
     .where("title")

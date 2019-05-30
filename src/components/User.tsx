@@ -1,7 +1,7 @@
 import React from "react";
 import { Header, Segment, Icon, Container } from "semantic-ui-react";
 import styled from "styled-components";
-import { User } from "../DB/db";
+import { User } from "../DB/table";
 
 const UserPage: React.FC<User[]> = users => {
   return (
