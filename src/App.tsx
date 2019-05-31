@@ -14,7 +14,6 @@ import AchieveContainer from "./containers/AchieveContainer";
 import AchieveChildContainer from "./containers/AchieveChildContainer";
 import ReviewContainer from "./containers/ReviewContainer";
 import ReviewChildContainer from "./containers/ReviewChildContainer";
-import UserContainer from "./containers/UserContainer";
 
 // DB
 import MyDB from "./DB/db";
@@ -48,7 +47,6 @@ const AppRouter: React.FC = () => {
             path="/reviews/:id"
             component={ReviewChildContainer}
           />
-          <Route strict exact path="/users" component={UserContainer} />
           <Route component={NoMatch} />
         </Switch>
       </Router>

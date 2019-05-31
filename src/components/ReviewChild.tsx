@@ -3,12 +3,7 @@ import { Header, Segment } from "semantic-ui-react";
 import styled from "styled-components";
 import { ReviewImage, ReviewChild } from "./Review";
 
-const Child: React.FC<ReviewChild> = ({
-  title,
-  date,
-  imageUrl,
-  description
-}) => {
+const Child: React.FC<ReviewChild> = ({ title, date, imageUrl, content }) => {
   return (
     <>
       <Container>
@@ -17,7 +12,7 @@ const Child: React.FC<ReviewChild> = ({
           <Header.Subheader>{date}</Header.Subheader>
         </Header>
         <ReviewImage imageUrl={imageUrl} />
-        <Segment padded>{description}</Segment>
+        <Segment padded>{content}</Segment>
       </Container>
     </>
   );

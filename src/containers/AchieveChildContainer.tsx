@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import useReactRouter from "use-react-router";
-import { match as Match } from "react-router";
-import Client from "../api/client";
 import { AchieveChild } from "../components/Achievement";
 import Achievement from "../components/AchieveChild";
 
-const init: AchieveChild = { id: "", title: "", date: "", description: "" };
+// DB
+import { DBContext as DB } from "../App";
+import AchieveTable from "../DB/achieveTable";
+
+const init: AchieveChild = {
+  id: "",
+  userId: "",
+  title: "",
+  date: "",
+  description: ""
+};
 
 const AchieveChildContainer: React.FC = () => {
-  const { match } = useReactRouter<{ match: Match }>();
+  const { match } = useReactRouter<{ id: string }>();
   const [achieve, setAchieve] = useState(init);
+  const db = useContext(DB);
+  const paramsId = Number(match.params.id);
   useEffect(() => {
-    Client<AchieveChild>(`${match.url}`).then(res => {
-      setAchieve(res);
-    });
-  }, [match.url]);
+    AchieveTable.find(db.achievement, paramsId).then(res => setAchieve(res));
+  }, [db.achievement, paramsId]);
   return <Achievement {...achieve} />;
 };
 

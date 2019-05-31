@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import useReactRouter from "use-react-router";
-import { match as Match } from "react-router";
-import Client from "../api/client";
+import React, { useEffect, useState, useContext, createContext } from "react";
 import Achievements, { Achieve } from "../components/Achievement";
+import { DBContext as DB } from "../App";
+import AchieveTable from "../DB/achieveTable";
 
 const init: Achieve = {
   title: "",
@@ -10,15 +9,26 @@ const init: Achieve = {
   achievements: []
 };
 
+const inputInit = {
+  title: ""
+};
+
+const Input = createContext({ title: "" });
+
 const AchieveContainer: React.FC = () => {
-  const { match } = useReactRouter<{ match: Match }>();
+  const db = useContext(DB);
   const [state, setAchieve] = useState(init);
   useEffect(() => {
-    Client<Achieve>(`${match.url}`).then(achievement => {
-      setAchieve(achievement);
-    });
-  }, [match.url]);
-  return <Achievements {...state} />;
+    AchieveTable.createPage(db.page, db.achievement).then(res =>
+      setAchieve(res)
+    );
+  }, [db]);
+
+  return (
+    <Input.Provider value={inputInit}>
+      <Achievements {...state} />
+    </Input.Provider>
+  );
 };
 
 export default AchieveContainer;

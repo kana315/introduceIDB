@@ -1,20 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+
+// Router
 import useReactRouter from "use-react-router";
-import { match as Match } from "react-router";
-import Client from "../api/client";
+
+// components
 import Child from "../components/ReviewChild";
 import { ReviewChild } from "../components/Review";
 
-const init: ReviewChild = { id: "", title: "", date: "", description: "" };
+// DB
+import { DBContext as DB } from "../App";
+import ReviewTable from "../DB/reviewTable";
+
+const init: ReviewChild = {
+  id: "",
+  userId: "",
+  title: "",
+  date: "",
+  content: ""
+};
 
 const ReviewChildContainer: React.FC = () => {
-  const { match } = useReactRouter<{ match: Match<{ id: string }> }>();
+  const { match } = useReactRouter<{ id: string }>();
   const [state, setReview] = useState(init);
+  const db = useContext(DB);
   useEffect(() => {
-    Client<ReviewChild>(match.url).then(res => {
-      setReview(res);
-    });
-  }, [match.url]);
+    ReviewTable.find(db.review, Number(match.params.id)).then(res =>
+      setReview(res)
+    );
+  }, [db.review, match.params.id]);
   return <Child {...state} />;
 };
 export default ReviewChildContainer;

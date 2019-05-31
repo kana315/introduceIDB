@@ -3,18 +3,18 @@ import React, { useEffect, useState, useContext } from "react";
 // import { match as Match } from "react-router";
 // import Client from "../api/client";
 // import DemoDB from "../DB/db";
-import Home from "../components/Home";
+import Home, { IntroducePage } from "../components/Home";
 import { DBContext as DB } from "../App";
 import IntroduceTable from "../DB/introduceTable";
 
-const init = {
-  title: "Introduce",
-  subTitle: "Init",
-  userId: 1,
-  name: "Kana",
-  joiningYear: "2019年",
-  lang: "使用言語：Ruby、JavaScript、TypeScript",
-  description: "description"
+const init: IntroducePage = {
+  title: "",
+  subTitle: "",
+  userId: "",
+  name: "",
+  joiningYear: "",
+  lang: "",
+  description: ""
 };
 
 const HomeContainer: React.FC = () => {
@@ -22,9 +22,9 @@ const HomeContainer: React.FC = () => {
   const [state, setIntroduce] = useState(init);
   const db = useContext(DB);
   useEffect(() => {
-    IntroduceTable.find(db.introduce, "Introdude").then(res =>
-      setIntroduce(res)
-    );
+    IntroduceTable.createIntroducePage(db.introduce, db.user).then(res => {
+      setIntroduce(res);
+    });
   }, [db]);
   return <Home {...state} />;
 };
