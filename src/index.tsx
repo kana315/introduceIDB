@@ -5,8 +5,17 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "semantic-ui-css/semantic.min.css";
+import MyDB from "./DB/db";
+import Provider from "./contexts/Db";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const db = new MyDB("myDB");
+
+ReactDOM.render(
+  <Provider db={db}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

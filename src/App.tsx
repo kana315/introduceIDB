@@ -10,16 +10,10 @@ import NoMatch from "./components/Nomatch";
 
 // container
 import HomeContainer from "./containers/HomeContainer";
-import AchieveContainer from "./containers/AchieveContainer";
-import AchieveChildContainer from "./containers/AchieveChildContainer";
+import AchieveListContainer from "./containers/AchieveListContainer";
+import AchievementContainer from "./containers/AchieveContainer";
+import ReviewListContainer from "./containers/ReviewListContainer";
 import ReviewContainer from "./containers/ReviewContainer";
-import ReviewChildContainer from "./containers/ReviewChildContainer";
-
-// DB
-import MyDB from "./DB/db";
-
-const db = new MyDB("myDB");
-export const DBContext = React.createContext(db);
 
 const AppRouter: React.FC = () => {
   return (
@@ -32,21 +26,16 @@ const AppRouter: React.FC = () => {
             strict
             exact
             path="/achievements"
-            component={AchieveContainer}
+            component={AchieveListContainer}
           />
           <Route
             strict
             exact
             path="/achievements/:id"
-            component={AchieveChildContainer}
+            component={AchievementContainer}
           />
-          <Route strict exact path="/reviews" component={ReviewContainer} />
-          <Route
-            strict
-            exact
-            path="/reviews/:id"
-            component={ReviewChildContainer}
-          />
+          <Route strict exact path="/reviews" component={ReviewListContainer} />
+          <Route strict exact path="/reviews/:id" component={ReviewContainer} />
           <Route component={NoMatch} />
         </Switch>
       </Router>

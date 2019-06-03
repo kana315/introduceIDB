@@ -19,7 +19,7 @@ export interface Page {
   subTitle: string;
 }
 
-// テーブル作成
+// DB作成
 class MyDB extends Dexie {
   user: Dexie.Table<User, number>;
   introduce: Dexie.Table<Introduce, number>;

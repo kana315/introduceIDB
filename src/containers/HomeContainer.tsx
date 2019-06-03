@@ -1,11 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
-// import useReactRouter from "use-react-router";
-// import { match as Match } from "react-router";
-// import Client from "../api/client";
-// import DemoDB from "../DB/db";
+import React, { useEffect, useState } from "react";
 import Home, { IntroducePage } from "../components/Home";
-import { DBContext as DB } from "../App";
 import IntroduceTable from "../DB/introduceTable";
+import { useDb } from "../contexts/Db";
 
 const init: IntroducePage = {
   title: "",
@@ -18,9 +14,8 @@ const init: IntroducePage = {
 };
 
 const HomeContainer: React.FC = () => {
-  // const { match } = useReactRouter<{ match: Match }>();
   const [state, setIntroduce] = useState(init);
-  const db = useContext(DB);
+  const db = useDb();
   useEffect(() => {
     IntroduceTable.createIntroducePage(db.introduce, db.user).then(res => {
       setIntroduce(res);

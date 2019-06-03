@@ -9,13 +9,23 @@ export interface Introduce {
 }
 
 // Introduceオブジェクトを追加
-async function create(table: Dexie.Table<any, number>, object: object) {
-  await table.put(object);
+async function create(
+  table: Dexie.Table<Introduce, number>,
+  object: Introduce
+) {
+  await table
+    .add(object)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      console.error(err);
+    });
 }
 
 // Userに紐付いたIntroducePageオブジェクトを返す
 async function createIntroducePage(
-  introduceTable: Dexie.Table<any, number>,
+  introduceTable: Dexie.Table<Introduce, number>,
   userTable: Dexie.Table<any, number>
 ): Dexie.Promise<IntroducePage> {
   const page = await introduceTable.get(1, res => res);

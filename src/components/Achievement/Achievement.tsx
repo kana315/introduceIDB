@@ -1,9 +1,22 @@
 import React from "react";
+
+// view
 import { Header, Segment } from "semantic-ui-react";
 import styled from "styled-components";
-import { AchieveImage, AchieveChild } from "./Achievement";
 
-const Child: React.FC<AchieveChild> = ({
+// components
+import { AchieveImage } from "./AchievementCards";
+
+export type Achievement = {
+  id: string | number;
+  userId: string | number;
+  title: string;
+  date: string;
+  imageUrl?: string;
+  description: string;
+};
+
+const Achievement: React.FC<Achievement> = ({
   title,
   date,
   imageUrl,
@@ -25,4 +38,4 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-export default Child;
+export default Achievement;

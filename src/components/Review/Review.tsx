@@ -1,9 +1,22 @@
 import React from "react";
+
+// view
 import { Header, Segment } from "semantic-ui-react";
 import styled from "styled-components";
-import { ReviewImage, ReviewChild } from "./Review";
 
-const Child: React.FC<ReviewChild> = ({ title, date, imageUrl, content }) => {
+// component
+import { ReviewImage } from "./ReviewImage";
+
+export type Props = {
+  id: number | string;
+  userId?: number | string;
+  title: string;
+  imageUrl?: string;
+  date: string;
+  content: string;
+};
+
+const Child: React.FC<Props> = ({ title, date, imageUrl, content }) => {
   return (
     <>
       <Container>

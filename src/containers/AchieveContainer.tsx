@@ -1,34 +1,40 @@
-import React, { useEffect, useState, useContext, createContext } from "react";
-import Achievements, { Achieve } from "../components/Achievement";
-import { DBContext as DB } from "../App";
+import React, { useEffect, useState } from "react";
+import useReactRouter from "use-react-router";
+
+// component, type
+import Achievement, {
+  Achievement as AchievementType
+} from "../components/Achievement/Achievement";
+
+// DB
+import { useDb } from "../contexts/Db";
 import AchieveTable from "../DB/achieveTable";
 
-const init: Achieve = {
+const init: AchievementType = {
+  id: "",
+  userId: "",
   title: "",
-  subTitle: "",
-  achievements: []
+  date: "",
+  description: ""
 };
-
-const inputInit = {
-  title: ""
-};
-
-const Input = createContext({ title: "" });
 
 const AchieveContainer: React.FC = () => {
-  const db = useContext(DB);
-  const [state, setAchieve] = useState(init);
-  useEffect(() => {
-    AchieveTable.createPage(db.page, db.achievement).then(res =>
-      setAchieve(res)
-    );
-  }, [db]);
+  const [achieve, setAchieve] = useState(init);
+  const db = useDb();
 
-  return (
-    <Input.Provider value={inputInit}>
-      <Achievements {...state} />
-    </Input.Provider>
-  );
+  // RouteからID取得
+  const { match } = useReactRouter<{ id: string }>();
+  const paramsId = Number(match.params.id);
+
+  useEffect(() => {
+    AchieveTable.find(db.achievement, paramsId).then(
+      (res): void => {
+        const achieveChild = res as AchievementType;
+        setAchieve(achieveChild);
+      }
+    );
+  }, [db.achievement, paramsId]);
+  return <Achievement {...achieve} />;
 };
 
 export default AchieveContainer;
