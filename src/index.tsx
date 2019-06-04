@@ -10,6 +10,8 @@ import Provider from "./contexts/Db";
 
 const db = new MyDB("myDB");
 
+serviceWorker.register();
+
 ReactDOM.render(
   <Provider db={db}>
     <App />
