@@ -17,6 +17,9 @@ export type Props = {
 };
 
 const Child: React.FC<Props> = ({ title, date, imageUrl, content }) => {
+  React.useEffect(() => {
+    window.scrollTo({ top: 0 });
+  });
   return (
     <>
       <Container>

@@ -22,6 +22,9 @@ const Achievement: React.FC<Achievement> = ({
   imageUrl,
   description
 }) => {
+  React.useEffect(() => {
+    window.scrollTo({ top: 0 });
+  });
   return (
     <Container>
       <Header as="h1">
