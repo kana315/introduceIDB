@@ -1,24 +1,40 @@
 import React, { useEffect, useState } from "react";
 import useReactRouter from "use-react-router";
-import { match as Match } from "react-router";
-import Client from "../api/client";
-import Achievements, { Achieve } from "../components/Achievement";
 
-const init: Achieve = {
+// component, type
+import Achievement, {
+  Achievement as AchievementType
+} from "../components/Achievement/Achievement";
+
+// DB
+import { useDb } from "../contexts/Db";
+import AchieveTable from "../DB/achieveTable";
+
+const init: AchievementType = {
+  id: "",
+  userId: "",
   title: "",
-  subTitle: "",
-  achievements: []
+  date: "",
+  description: ""
 };
 
 const AchieveContainer: React.FC = () => {
-  const { match } = useReactRouter<{ match: Match }>();
-  const [state, setAchieve] = useState(init);
+  const [achieve, setAchieve] = useState(init);
+  const db = useDb();
+
+  // RouteからID取得
+  const { match } = useReactRouter<{ id: string }>();
+  const paramsId = Number(match.params.id);
+
   useEffect(() => {
-    Client<Achieve>(`${match.url}`).then(achievement => {
-      setAchieve(achievement);
-    });
-  }, [match.url]);
-  return <Achievements {...state} />;
+    AchieveTable.find(db.achievement, paramsId).then(
+      (res): void => {
+        const achieveChild = res as AchievementType;
+        setAchieve(achieveChild);
+      }
+    );
+  }, [db.achievement, paramsId]);
+  return <Achievement {...achieve} />;
 };
 
 export default AchieveContainer;

@@ -1,29 +1,33 @@
-import React, { useState, useEffect, useContext } from "react";
-// import useReactRouter from "use-react-router";.
-// import { match as Match } from "react-router";
-import Review, { Review as TReview, ReviewPage } from "../components/Review";
-import { DBContext as DB } from "../App";
+import React, { useState, useEffect } from "react";
+
+// Router
+import useReactRouter from "use-react-router";
+
+// components
+import Review from "../components/Review/Review";
+import { Props as ReviewType } from "../components/Review/Review";
+
+// DB
+import { useDb } from "../contexts/Db";
 import ReviewTable from "../DB/reviewTable";
 
-const init: TReview = { id: "", title: "", content: "" };
-const pageInit: ReviewPage = { title: "", subTitle: "", reviews: [init] };
-
-export const InputContext = React.createContext({ title: "", content: "" });
-
-export const ReviewContainer: React.FC = () => {
-  // const { match } = useReactRouter<{ match: Match }>();
-  const [page, setReview] = useState(pageInit);
-  const db = useContext(DB);
-  useEffect(() => {
-    ReviewTable.createPage(db.page, db.review).then(res => {
-      setReview(res);
-    });
-  }, [db]);
-  return (
-    <InputContext.Provider value={init}>
-      <Review {...page} />
-    </InputContext.Provider>
-  );
+const init: ReviewType = {
+  id: "",
+  userId: "",
+  title: "",
+  date: "",
+  content: ""
 };
 
+const ReviewContainer: React.FC = () => {
+  const [state, setReview] = useState(init);
+  const { match } = useReactRouter<{ id: string }>();
+  const db = useDb();
+  useEffect(() => {
+    ReviewTable.find(db.review, Number(match.params.id)).then(res => {
+      setReview(res as ReviewType);
+    });
+  }, [db, match.params.id]);
+  return <Review {...state} />;
+};
 export default ReviewContainer;

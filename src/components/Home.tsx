@@ -5,6 +5,7 @@ import styled from "styled-components";
 export type IntroducePage = {
   title: string;
   subTitle: string;
+  userId?: number | string;
   name?: string;
   joiningYear?: string;
   lang?: string;

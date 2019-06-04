@@ -19,10 +19,6 @@ const TopMenu: React.FC = () => {
           <Icon name="book" />
           Reviews
         </Menu.Item>
-        <Menu.Item onClick={() => history.push("/users")}>
-          <Icon name="folder outline" />
-          User
-        </Menu.Item>
       </Menu>
     </>
   );
