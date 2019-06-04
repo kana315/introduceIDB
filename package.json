@@ -32,10 +32,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && now",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "webdash": "webdash serve"
+    "webdash": "webdash serve",
+    "now-build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
