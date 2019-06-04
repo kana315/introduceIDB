@@ -1,5 +1,6 @@
 {
   "version": 2,
   "name": "introduce",
-  "regions": ["hnd1"]
+  "regions": ["hnd1"],
+  "buils": [{ "src": "build", "use": "@now/static" }]
 }
